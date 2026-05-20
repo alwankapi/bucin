@@ -169,7 +169,12 @@
     #answer-screen {
       display: none;
       position: fixed;
-      inset: 0;
+      top: 0;
+      left: 0;
+      right: 0;
+      bottom: 0;
+      width: 100vw;
+      height: 100vh;
       z-index: 100;
       background-color: #ffffff;
       align-items: center;
@@ -177,11 +182,17 @@
       flex-direction: column;
       text-align: center;
       padding: 20px;
+      overflow: hidden;
     }
 
     #answer-screen.show {
       display: flex;
       animation: popIn 0.5s cubic-bezier(0.175, 0.885, 0.32, 1.275) both;
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
     }
 
     @keyframes popIn {
@@ -436,8 +447,21 @@
     }
 
     function showAnswer() {
-      // confetti burst from current yes button position
+      // Reset button sizes to default before showing answer
       const btnYes = document.getElementById('btn-yes');
+      const btnNo = document.getElementById('btn-no');
+      
+      // Reset to original CSS values
+      btnYes.style.padding = '12px 24px';
+      btnYes.style.fontSize = '1rem';
+      btnNo.style.padding = '12px 24px';
+      btnNo.style.fontSize = '1rem';
+      btnNo.style.opacity = '1';
+      
+      // Force reflow to ensure layout is updated
+      void btnYes.offsetWidth;
+      
+      // confetti burst from current yes button position
       const rect = btnYes.getBoundingClientRect();
       const startX = rect.left + rect.width / 2;
       const startY = rect.top + rect.height / 2;
