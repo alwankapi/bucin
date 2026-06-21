@@ -4,7 +4,7 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>🌸 Suka Aku Gak?</title>
+  <title>🌸 Buat kamu</title>
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@400;600;800&display=swap" rel="stylesheet">
@@ -223,6 +223,39 @@
       display: inline-block;
     }
 
+    .wa-action {
+      margin-top: 28px;
+      background-color: #25d366;
+      color: #ffffff;
+      border: none;
+      border-radius: 999px;
+      padding: 12px 22px;
+      font-size: 1rem;
+      font-weight: 600;
+      cursor: pointer;
+      display: none;
+      align-items: center;
+      justify-content: center;
+      gap: 8px;
+      box-shadow: 0 10px 24px rgba(37, 211, 102, 0.25);
+      transition: all 0.25s ease;
+    }
+
+    .wa-action.show {
+      display: inline-flex;
+      animation: popIn 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275) both;
+    }
+
+    .wa-action:hover {
+      background-color: #1ebe5d;
+      transform: translateY(-2px) scale(1.03);
+      box-shadow: 0 12px 28px rgba(37, 211, 102, 0.35);
+    }
+
+    .wa-icon {
+      font-size: 1.2rem;
+    }
+
     /* Burst heart animation */
     .burst-heart {
       position: fixed;
@@ -374,6 +407,7 @@
       .btn-wrap { gap: 12px; }
       .answer-emoji { font-size: 4rem; }
       .answer-title { font-size: 1.3rem; max-width: 280px; }
+      .wa-action { font-size: 0.9rem; padding: 11px 18px; }
       .music-control { width: 45px; height: 45px; top: 15px; right: 15px; }
       .music-icon { font-size: 1.4rem; }
       .hint { top: 65px; right: 12px; }
@@ -417,6 +451,10 @@
   <div id="answer-screen">
     <span class="answer-emoji">🌸</span>
     <div class="answer-title" id="answer-title"></div>
+    <button class="wa-action" id="wa-action" onclick="sendWhatsAppMessage()">
+      <span class="wa-icon">💌</span>
+      <span>Kasih tau dia</span>
+    </button>
   </div>
 
   <script>
@@ -551,8 +589,14 @@
           clearInterval(interval);
           answerEl.classList.remove('typing');
           answerEl.classList.add('done');
+          document.getElementById('wa-action').classList.add('show');
         }
       }, 80);
+    }
+
+    function sendWhatsAppMessage() {
+      const waMsg = encodeURIComponent('Hai! Ada yang suka banget sama kamu nih! 💖🌸');
+      window.open('https://wa.me/6285697153635?text=' + waMsg, '_blank');
     }
 
     function toggleMusic() {
